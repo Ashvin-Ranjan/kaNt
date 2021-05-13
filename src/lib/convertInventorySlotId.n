@@ -1,0 +1,29 @@
+// Based off of:
+// https://github.com/PrismarineJS/flying-squid/blob/master/src/lib/convertInventorySlotId.js
+
+let replace = mapfrom([
+	(100, 8),
+	(101, 7),
+	(102, 6),
+	(103, 3),
+	(-106, 45),
+])
+
+let invertReplace = mapfrom([
+	(8, 100),
+	(7, 101),
+	(6, 102),
+	(3, 103),
+	(45, -106),
+]) // TODO: Make this though function
+
+
+let pub fromNBT = [slotId:int] -> int {
+	let slot = if (slotId >= 0 && slotId < 9) { 36 + slotId } else { slotId }
+	return replace |> getValue(slotId) |> default(slot)
+}
+
+let pub toNBT = [slotId:int] -> int {
+	let slot = if (slotId >= 36 && slotId <= 44) { slotId - 36 } else { slotId }
+	return invertReplace |> getValue(slotId) |> default(slot)
+}
