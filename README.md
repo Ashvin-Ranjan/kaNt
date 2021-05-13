@@ -84,5 +84,83 @@ Todo:
 - [ ] tools
 	- [ ] `dumpCodec.n`
 - [ ] `app.n`
-
-`TODO: update TODO list for dependancies`
+- [ ][kaNt-nbt](https://github.com/PrismarineJS/prismarine-nbt)
+	- [ ] bench
+		- [ ] `complied_nbt.n`
+	- [ ] sample
+		- [ ] `bigtest.n`
+		- [ ] `bigtest.nbt` (Just Copy)
+		- [ ] `bigtest.nbt.gz` (Just Copy)
+		- [ ] `biome_definitions.le.nbt` (Just Copy)
+		- [ ] `block_states.lev.nbt` (Just Copy)
+		- [ ] `emptyComp.nbt` (Just Copy)
+		- [ ] `level.dat` (Just Copy)
+		- [ ] `readmeExample.n`
+		- [ ] `sample.n`
+		- [ ] `sampleLE.n`
+	- [ ] test
+		- [ ] `datatypes.n`
+		- [ ] `nbt-cross-encode.n`
+		- [ ] `nbt-spec.n`
+	- [ ] typings
+		- [ ] `index.d.n`
+	- [ ] `compiler-compound.n`
+	- [ ] `compiler-tagname.n`
+	- [ ] `compiler-zigzag.n`
+	- [ ] `compound.n`
+	- [ ] `nbt-varint.n`
+	- [ ] `nbt.n`
+	- [ ] `nbt.json` (Just Copy)
+- [ ][kaNt-chunk](https://github.com/PrismarineJS/prismarine-chunk)
+	- [ ] src
+		- [ ] pc
+			- [ ] 1.13
+				- [ ] `ChunkColumn.n`
+				- [ ] `ChunkColumn.test.n`
+				- [ ] `ChunkSection.n`
+				- [ ] `ChunkSection.test.n`
+				- [ ] `chunk.n`
+			- [ ] 1.14
+				- [ ] `ChunkColumn.n`
+				- [ ] `ChunkSection.n`
+				- [ ] `chunk.n`
+			- [ ] 1.15
+				- [ ] `ChunkColumn.n`
+				- [ ] `ChunkSection.n`
+				- [ ] `chunk.n`
+			- [ ] 1.16
+				- [ ] `ChunkColumn.n`
+				- [ ] `ChunkSection.n`
+				- [ ] `chunk.n`
+			- [ ] 1.8
+				- [ ] `section.n`
+				- [ ] `chunk.n`
+			- [ ] 1.9
+				- [ ] `ChunkColumn.n`
+				- [ ] `ChunkSection.n`
+				- [ ] `chunk.n`
+			- [ ] common
+				- [ ] `BitArray.n`
+				- [ ] `BitArray.test.n`
+				- [ ] `BitArrayNoSpan.n`
+				- [ ] `constants.n`
+				- [ ] `neededBits.n`
+				- [ ] `neededBits.test.n`
+				- [ ] `varInt.n`
+				- [ ] `varInt.test.n`
+		- [ ] pe
+			- [ ] 0.14
+				- [ ] `chunk.n`
+			- [ ] 1.0
+				- [ ] `chunk.n`
+				- [ ] `subchunk.n`
+		- [ ] `index.n`
+	- [ ] test
+		- [ ] `test.n`
+		- [ ] Everything else (Just Copy)
+	- [ ] types
+		- [ ] `index.d.n`
+		- [ ] `chunk.d.n`
+		- [ ] `section.d.n`
+	- [ ] `index.n`
+	- [ ] `example.n`
