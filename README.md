@@ -84,3 +84,5 @@ Todo:
 - [ ] tools
 	- [ ] `dumpCodec.n`
 - [ ] `app.n`
+
+`TODO: update TODO list for dependancies`
