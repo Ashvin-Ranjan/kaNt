@@ -84,7 +84,7 @@ Todo:
 - [ ] tools
 	- [ ] `dumpCodec.n`
 - [ ] `app.n`
-- [ ][kaNt-nbt](https://github.com/PrismarineJS/prismarine-nbt)
+- [ ] kaNt-nbt (https://github.com/PrismarineJS/prismarine-nbt)
 	- [ ] bench
 		- [ ] `complied_nbt.n`
 	- [ ] sample
@@ -111,7 +111,7 @@ Todo:
 	- [ ] `nbt-varint.n`
 	- [ ] `nbt.n`
 	- [ ] `nbt.json` (Just Copy)
-- [ ][kaNt-chunk](https://github.com/PrismarineJS/prismarine-chunk)
+- [ ] kaNt-chunk (https://github.com/PrismarineJS/prismarine-chunk)
 	- [ ] src
 		- [ ] pc
 			- [ ] 1.13
