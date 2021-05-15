@@ -1,0 +1,58 @@
+class Bit [value:int] {
+	let internal = value % 2
+	let pub toString = [] -> str {
+		return intInBase10(internal)
+	}
+
+	let pub toInt = [] -> int {
+		return internal
+	}
+}
+
+class Byte [value:list[Bit]] {
+	let pub toString = [] -> str {
+		let out = ""
+		for (bit in value) {
+			var out = out + bit.toString()
+		}
+		return out
+	}
+
+	let pub bits = [] -> list[Bit] {
+		return value
+	}
+
+	let pub toInt = [] -> int {
+		let out = 0
+		return 0
+	}
+}
+
+let pub byteFromString = [val:str] -> maybe[Byte] {
+	let bits:list[Bit] = []
+	for (i in range(len(val) - 1, -1, -1)) {
+		let character:char = val |> charAt(i)
+		if (character == \{0} || character == \{1}) {
+			var bits = bits |> append(Bit(character))
+		} else {
+			return none
+		}
+	}
+
+	return Byte(bits)
+}
+
+let pub byteFromInt = [val:int] -> Byte {
+	let reverse = []
+	let tracker = val
+	for (i in range(0, (val/2) + 1, 1)) {
+		var reverse |> append(Bit(tracker % 2))
+		var tracker = tracker/2
+	}
+
+	let out = []
+	for (i in range(len(reverse) - 1, -1, -1)) {
+		var out = out |> append(reverse |> itemAt(i))
+	}
+	return Byte(out)
+}

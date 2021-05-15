@@ -1,0 +1,188 @@
+import json
+
+let Math = imp "../Math/math.n"
+
+class pub Vec3 [xi:float yi:float zi:float] {
+	let pub x = xi
+	let pub y = yi
+	let pub z = zi
+
+	let pub clone = [] -> Vec3 {
+		return Vec3(x, y, z)
+	}
+
+	let pub set = [x1:float y1:float z1:float] -> Vec3 {
+		var x = x1
+		var y = y1
+		var z = z1
+		return clone()
+	}
+
+	let pub equals = [v:Vec3 tolerance:maybe[float]] -> bool {
+		let t = 0.0000001
+		if let <yes tol> = tolerance {
+			var t = tol
+		}
+
+		return (Math.abs(v.x - x) <= t) && (Math.abs(v.y - y) <= t) && (Math.abs(v.z - z) <= t)
+	}
+
+	let pub add = [v:Vec3] -> Vec3 {
+		var x = v.x + x
+		var y = v.y + y
+		var z = v.z + z
+		return clone()
+	}
+
+	let pub sub = [v:Vec3] -> Vec3 {
+		var x = x - v.x
+		var y = y - v.y
+		var z = z - v.z
+		return clone()
+	}
+
+	let pub scale = [v:float] -> Vec3 {
+		var x = x * v
+		var y = y * v
+		var z = z * v
+		return clone()
+	}
+
+	let pub distance = [v:Vec3] -> float {
+		let dx = v.x - x
+		let dy = v.y - y
+		let dz = v.z - z
+		return Math.sqrt(dx^2 + dy^2 + dz^2)
+	}
+
+	let pub squareDistance = [v:Vec3] -> float {
+		let dx = v.x - x
+		let dy = v.y - y
+		let dz = v.z - z
+		return dx^2 + dy^2 + dz^2
+	}
+
+	let pub simpleDistance = [v:Vec3] -> float {
+		let dx = Math.abs(v.x - x)
+		let dy = Math.abs(v.y - y)
+		let dz = Math.abs(v.z - z)
+		return Math.min([dx, dy, dz])
+	}
+
+	let pub copy = [v:Vec3] -> Vec3 {
+		var x = v.x
+		var y = v.y
+		var z = v.z
+		return clone()
+	}
+
+	let pub dup = [] -> Vec3 { // Why does this exist
+		return clone()
+	}
+
+	let pub dot = [v:Vec3] -> float {
+		return x * v.x + y * v.y + z * v.z
+	}
+
+	let pub cross = [v:Vec3] -> Vec3 {
+		var x = y * v.z - z * v.y
+		var y = z * v.x - x * v.z
+		var z = x * v.y - y * v.x
+		return clone()
+	}
+
+	let pub asAdd = [a:Vec3 b:Vec3] -> Vec3 {
+		var x = a.x + b.x
+		var y = a.y + b.y
+		var z = a.z + b.z
+		return clone()
+	}
+
+	let pub asSub = [a:Vec3 b:Vec3] -> Vec3 {
+		var x = a.x - b.x
+		var y = a.y - b.y
+		var z = a.z - b.z
+		return clone()
+	}
+
+	let pub asCross = [a:Vec3 b:Vec3] -> Vec3 {
+		copy(a)
+		cross(b)
+		return clone()
+	}
+
+	let pub addScaled = [a:Vec3 f:float] -> Vec3 {
+		var x = x + a.x * f
+		var y = y + a.y * f
+		var z = z + a.z * f
+		return clone()
+	}
+
+	let pub length = [] -> float {
+		return Math.sqrt(x^2 + y^2 + z^2)
+	}
+
+	let pub lengthSquared = [] -> float {
+		return x^2 + y^2 + z^2
+	}
+
+	let pub normalize = [] -> Vec3 {
+		let len = length()
+
+		if len > 0.0 {
+			scale(1.0/length)
+		}
+
+		return clone()
+	}
+	
+	let pub limit = [s:float] -> Vec3 {
+		let len = length()
+
+		if len > 0.0 && len > s {
+			scale(s/length)
+		}
+
+		return clone()
+	}
+
+	let pub larp = [v:Vec3 t:float] -> Vec3 {
+		var x = x + (v.x - x) * t;
+		var y = y + (v.y - y) * t;
+		var z = z + (v.z - z) * t;
+		return clone()
+	}
+
+	// transformMat4 is not included because the Mat4 type does not exist
+
+	// transformQuat is not included because the Quat type does not exist
+
+	let pub toString = [] -> str {
+		return "{" + json.stringify(json.number(floor(x * 1000.0)^1/1000.0)) + ", " + json.stringify(json.number(floor(y * 1000.0)^1/1000.0)) + ", " + json.stringify(json.number(floor(z * 1000.0)^1/1000.0)) + "}"
+	}
+
+	let pub hash = [] -> float {
+		return 1 * x + 12 * y + 123 * z
+	}
+}
+
+let pub create = [x:float y:float z:float] -> Vec3 { // Unsure why it exists but I will include it for accuracy
+	return Vec3(x, y, z)
+}
+
+let pub fromArray = [a:list[float]] -> Vec3 { // Missing values are substitued with 0s
+	if let <yes x> = a |> itemAt(0) {
+		if let <yes y> = a |> itemAt(1) {
+			if let <yes z> = a |> itemAt(2) {
+				return Vec3(x, y, z)
+			}
+			return Vec3(x, y, 0.0)
+		}
+		return Vec3(x, 0.0, 0.0)
+	}
+	return Vec3(0.0, 0.0, 0.0)
+}
+
+let pub Zero = [] -> Vec3 {
+	return Vec3(0.0, 0.0, 0.0)
+}

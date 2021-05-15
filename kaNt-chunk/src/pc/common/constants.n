@@ -1,0 +1,25 @@
+// height in blocks of a chunk column
+let pub CHUNK_HEIGHT = 256
+
+// width in blocks of a chunk column
+let pub CHUNK_WIDTH = 16
+
+// height in blocks of a chunk section
+let pub SECTION_HEIGHT = 16
+
+// width in blocks of a chunk section
+let pub SECTION_WIDTH = 16
+
+// volume in blocks of a chunk section
+let pub SECTION_VOLUME = SECTION_HEIGHT * SECTION_WIDTH * SECTION_WIDTH
+
+// number of chunk sections in a chunk column
+let pub NUM_SECTIONS = 16
+
+// maximum number of bits per block allowed when using the section palette.
+// values above will switch to global palette
+let pub MAX_BITS_PER_BLOCK = 8
+
+// number of bits used for each block in the global palette.
+// this value should not be hardcoded according to wiki.vg
+let pub GLOBAL_BITS_PER_BLOCK = 14

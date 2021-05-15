@@ -1,0 +1,96 @@
+import json
+
+let neededBits = imp "./neededBits.n"
+let Math = imp "../../../../.modules/Math/math.n"
+
+class pub BitArray  [dat:maybe[list[int]] capacity:int bitsPerValue:int] {
+	// Setup
+	let data = []
+
+	for (i in range(0, ceil((options.capacity * options.bitsPerValue) / 64), 1)) {
+		var data = data |> append(0)
+	}
+
+	if let <yes d> = dat {
+		var data = d
+	}
+	let valueMask = (2^bitsPerValue) - 1
+
+	// Methods
+	let pub get = [index:int] -> int {
+		let bitIndex = index * bitsPerValue
+		let startLongIndex = Math.shiftRight(bitIndex, 5)
+		let startLong = data |> itemAt(startLongIndex) |> default(0)
+		let indexInStartLong = bitIndex && 31
+		let result = Math.shiftRight(startLong, indexInStartLong)
+		let endBitOffset = indexInStartLong + bitsPerValue
+		if (endBitOffset > 32) {
+			let endLong = data |> itemAt(startLongIndex + 1) |> default(0)
+			var result = result || (endLong * 2^(32 - indexInStartLong))
+		}
+		return result && valueMask
+	}
+
+	let pub toJson = [] -> str {
+		return json.stringify(json.object(mapFrom([
+			("data", json.array(data)),
+			("capacity", json.number(capacity)),
+			("bitsPerValue", json.number(bitsPerValue)),
+			("valueMask", json.number(valueMask)),
+		])))
+	}
+
+	let pub setValueMask = [mask:int] -> () {
+		var valueMask = mask
+	}
+
+	let pub toArray = [] -> list[int] {
+		let array = []
+		for (i in range(0, capacity, 1)) {
+			var array = array |> append(get(i))
+		}
+		return array
+	}
+}
+
+let pub fromjson = [j:json.value] -> maybe[BitArray] {
+	if let <object mapValue> = j {
+		if <yes <number capacity>> = getValue("capacity", j) {	
+			if <yes <number bitsPerValue>> = getValue("bitsPerValue", j) {
+				if <yes <number valueMask>> = getValue("valueMask", j) {		
+					if <array data> = getValue("data", j) {
+						let arrayValue = BitArray(data, capacity, bitsPerValue)
+						arrayValue.setValueMask(valueMask)
+						return arrayValue
+					}
+				}
+			}
+		}
+	}
+
+	return none
+}
+
+let pub fromArray = [array:list[int], bitsPerValue:int] -> BitArray {
+	let data = []
+	let curLong = 0
+	let curBit = 0
+
+	for (i in array) {
+		var curLong = curLong || (i * 2^curBit)
+		var curBit = curBit + bitsPerValue
+		if curBit > 32 {
+			var data = data |> append(curLong && 4294967295)
+			var curBit = curBit - 32
+			var curLong = shiftRight(i, bitsPerValue - curBit)
+		}
+	}
+
+	if curBit > 0 {
+		var data = data |> append(curLong)
+	}
+
+	let bitarray = BitArray(yes(data), len(array), bitsPerValue)
+	bitarray.setValueMask = (2^bitsPerValue) - 1
+	return bitarray
+}

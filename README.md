@@ -108,9 +108,9 @@ Todo:
 	- [ ] `compiler-tagname.n`
 	- [ ] `compiler-zigzag.n`
 	- [ ] `compound.n`
-	- [ ] `nbt-varint.n`
+	- [x] `nbt-varint.n` (Just Copy)
 	- [ ] `nbt.n`
-	- [ ] `nbt.json` (Just Copy)
+	- [x] `nbt.json` (Just Copy)
 - [ ] kaNt-chunk (https://github.com/PrismarineJS/prismarine-chunk)
 	- [ ] src
 		- [ ] pc
@@ -141,13 +141,10 @@ Todo:
 				- [ ] `chunk.n`
 			- [ ] common
 				- [ ] `BitArray.n`
-				- [ ] `BitArray.test.n`
 				- [ ] `BitArrayNoSpan.n`
-				- [ ] `constants.n`
-				- [ ] `neededBits.n`
-				- [ ] `neededBits.test.n`
+				- [x] `constants.n`
+				- [x] `neededBits.n`
 				- [ ] `varInt.n`
-				- [ ] `varInt.test.n`
 		- [ ] pe
 			- [ ] 0.14
 				- [ ] `chunk.n`
@@ -164,3 +161,7 @@ Todo:
 		- [ ] `section.d.n`
 	- [ ] `index.n`
 	- [ ] `example.n`
+- [ ] kaNt-item (https://github.com/PrismarineJS/prismarine-item)
+	- [ ] lib
+		- [ ] `anvil.n`
+	- [ ] `index.n`

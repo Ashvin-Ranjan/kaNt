@@ -1,0 +1,5 @@
+let binary = imp "../../../../.modules/numtypes/binary.n"
+
+let pub neededBits = [value:int] -> int {
+	return len(binary.byteFromInt(value).bits())
+}
