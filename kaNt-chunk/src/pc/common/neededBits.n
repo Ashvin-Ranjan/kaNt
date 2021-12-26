@@ -1,5 +1,13 @@
-let binary = imp "../../../../.modules/numtypes/binary.n"
+// Based off of:
+// https://github.com/PrismarineJS/prismarine-chunk/blob/master/src/pc/common/neededBits.js
 
-let pub neededBits = [value:int] -> int {
-	return len(binary.byteFromInt(value).bits())
+let pub neededBits = (value:int) -> int {
+	let mut v = value
+	let mut i = 0
+	while (v ~= 0) {
+		i += 1
+		v = v >> 1
+	}
+
+	return v
 }

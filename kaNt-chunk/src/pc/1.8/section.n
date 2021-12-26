@@ -1,48 +1,50 @@
+// Based off of:
+// https://github.com/PrismarineJS/prismarine-chunk/blob/master/src/pc/1.8/section.js
+
 let Vec3 = imp "../../../../.modules/Vec3/Vec3.n"
 
 let w = 16
 let l = 16
 let sh = 16
 
-let getArrayPosition = [pos:Vec3.Vec3] -> float {
-	return pos.x + w^1 * (pos.z + l^1 * pos.y)
+let getArrayPosition = (pos:Vec3.Vec3) -> float {
+	return pos.x + w.toFloat() * (pos.z + l.toFloat() * pos.y)
 }
 
-let getBlockCursor = [pos:Vec3.Vec3] -> float {
+let getBlockCursor = (pos:Vec3.Vec3) -> float {
 	return getArrayPosition(pos) * 2.0
 }
 
-let getBlockLightCursor = [pos:Vec3.Vec3] -> float {
-	return getArrayPosition(pos) * 0.5 + w^1 * l^1 * sh^1 * 2
+let getBlockLightCursor = (pos:Vec3.Vec3) -> float {
+	return getArrayPosition(pos) * 0.5 + w.toFloat() * l.toFloat() * sh.toFloat() * 2.0
 }
 
-let getSkyLightCursor = [pos:Vec3.Vec3] -> float {
-	return getArrayPosition(pos) * 0.5 + w^1 * l^1 * sh^1 / 2 * 5
+let getSkyLightCursor = (pos:Vec3.Vec3) -> float {
+	return (getArrayPosition(pos) * 0.5 + w.toFloat() * l.toFloat() * sh.toFloat() / 2.0) * 5.0
 }
 
-let pub sectionSize = [skyLightSent:maybe[bool]] -> float {
-	return (w * l * sh)^1 * (skyLightSent ? 3 : 5 / 2)^1
+let pub sectionSize = (skyLightSent:maybe[bool]) -> float {
+	return (w * l * sh).toFloat() * (if (skyLightSent | true) { 3.0 } else { 2.5 })
 }
 
-class pub Section [sls:maybe[bool]]{
-	let skyLightSent = sls |> default(true)
+class pub Section (sls:maybe[bool]) {
+	let skyLightSent = sls | true
 
 	let SECTION_SIZE = sectionSize(yes(skyLightSent))
 
-	let data = range(0, SECTION_SIZE, 1)
-		|> filterMap([_:int] -> maybe[int] {
+	let data = range(0, SECTION_SIZE.floor(), 1).filterMap((_:int) -> maybe[int] {
 			return yes(0)
 		})
 
-	let getBiomeColor = [pos:Vec3.Vec3] -> { r:int; g:int; b:int } {
+	let getBiomeColor = (pos:Vec3.Vec3) -> { r:int, g:int, b:int } {
 		return {
-			r: 0
-			g: 0
-			b: 0
+			r: 0,
+			g: 0,
+			b: 0,
 		}
 	}
 
-	let setBiomeColor = [pos:Vec3.Vec3 r:int g:int b:int] -> () { } // I don't know why this function exists but it does and I must not change it
+	let setBiomeColor = (pos:Vec3.Vec3, r:int, g:int, b:int) -> () { } // I don't know why this function exists but it does and I must not change it
 
 
 }

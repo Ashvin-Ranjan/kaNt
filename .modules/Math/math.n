@@ -1,29 +1,29 @@
-let pub abs = [value:float] -> float {
+let pub abs = (value:float) -> float {
 	return (value^2.0)/value
 }
 
-let pub sqrt = [value:float] -> float {
+let pub sqrt = (value:float) -> float {
 	return value^0.5
 }
 
-let pub min = [value:list[float]] -> float {
-	let m = value |> itemAt(0) |> default(-1^1)
+let pub min = (value:list[float]) -> float {
+	let mut m = value[0] | -1.0
 	for (i in value) {
 		if (i < m) {
-			var m = i
+			m = i
 		}
 	}
 
 	return m
 }
 
-let pub shiftRight = [a:int b:int] -> int {
+let pub shiftRight = (a:int, b:int) -> int {
   if b < 0 {
     return 0
   }
   return if a < 0 {
-    (round(2 ^ 32) + a) / round(2 ^ b)
+    ((2 ^ 32).round() + a) / (2 ^ b).round()
   } else {
-    a / round(2 ^ b)
+    a / (2 ^ b).round()
   }
 }
